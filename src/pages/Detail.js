@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Loading from './../components/Loading'
 
 export class Detail extends Component {
   static proptypes = {
@@ -26,7 +27,9 @@ export class Detail extends Component {
 
   componentDidMount() {
     const { animeId } = this.props.match.params
-    this._fetchMovie({ id: animeId })
+    setTimeout(() => (
+      this._fetchMovie({ id: animeId })
+    ), 1000);
   }
 
   _renderAnime() {
@@ -77,8 +80,7 @@ export class Detail extends Component {
     return (
       <section>
         {Object.keys(this.state.anime).length === 0
-          ? <div className="button is-loading">Loading</div>
-          : this._renderAnime()
+          ? <Loading /> : this._renderAnime()
         }
       </section>
     )

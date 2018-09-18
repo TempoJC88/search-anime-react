@@ -16,7 +16,7 @@ export const Header = () => (
       </div>
       <div id="navbarMenu" className="navbar-menu">
         <div className="navbar-end">
-          <Link to='/home' className="navbar-item">
+          <Link to='/' className="navbar-item">
             Home
           </Link>
           <a className="navbar-item">

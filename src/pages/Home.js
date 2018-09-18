@@ -1,16 +1,30 @@
 import React, { Component } from 'react'
 import { SearchForm } from './../components/SearchForm'
 import { AnimeList } from './../components/AnimeList'
+import Loading from './../components/Loading'
 
 export class Home extends Component {
   state = {
-    usedSearch: false,
     count: 0,
-    data: []
+    data: [],
+    loadAnime: false
+  }
+
+  componentDidMount() {
+    setTimeout(() => (
+      fetch(`https://kitsu.io/api/edge/anime`)
+        .then(res => res.json())
+        .then(result => {
+          const { data, meta } = result
+          this.setState({ count: meta.count, data, loadAnime: true })
+        })
+    ), 1000);
+
+
   }
 
   _handleResults = (count, data) => {
-    this.setState({ count, data, usedSearch: true })
+    this.setState({ count, data })
   }
 
   _renderResult = () => {
@@ -28,10 +42,8 @@ export class Home extends Component {
         </div>
         <div className="section">
           <SearchForm onResults={this._handleResults} />
-          {this.state.usedSearch
-            ? this._renderResult()
-            : <small className="has-text-primary">Use the form to search a movie</small>
-          }
+          {this.state.loadAnime ? this._renderResult() : <Loading />}
+
         </div>
       </div>
     );

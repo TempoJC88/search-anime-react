@@ -15,9 +15,15 @@ class App extends Component {
       <div className="App">
         <Header />
         <Switch>
-          <Route exac path='/home' component={Home} />
-          <Route path='/detail/:animeId' component={Detail} />
-          <Route component={NotFound} />
+          <Route
+            exact
+            path='/'
+            component={Home} />
+          <Route
+            path='/detail/:animeId'
+            component={Detail} />
+          <Route
+            component={NotFound} />
         </Switch>
       </div>
     );
